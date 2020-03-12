@@ -1,14 +1,14 @@
 package com.riadhmnasri
 
-import org.springframework.core.io.ClassPathResource
 import com.riadhmnasri.domain.Book as BookDomain
 
 fun main() {
     /*
+    What I will present in this live coding session
     Java vs Kotlin (see https://www.kotlinvsjava.com/)
     Vals vs Vars (declare variable)
     Type inference
-    Class and data classes (equality) (classes instantiating (no more new))
+    Class and data classes (classes instantiating (no more new))
     Default values (no need to overload)
     Referential equality and structural equality
     String templates
@@ -113,17 +113,17 @@ fun main() {
     //println(book)
     // With
     //val book = BookDomain("ISBNTEST1", "Programming Kotlin")
-//    val result = with(book){
-//        rate(5)
-//    }
-//    println(result)
+    //val result = with(book){
+    //    rate(5)
+    // }
+    //println(result)
 
     // Run
-//    val book = BookDomain("ISBNTEST1", "Programming Kotlin")
-//    val result = book.run {
-//        rate(5)
-//    }
-//    println(result)
+    //    val book = BookDomain("ISBNTEST1", "Programming Kotlin")
+    //    val result = book.run {
+    //        rate(5)
+    //    }
+    //    println(result)
     // Lazy
     // val note = lazy { BookDomain("ISBNTEST1", "Programming Kotlin").rate(5) }
     //println(note.value)
@@ -131,19 +131,28 @@ fun main() {
     // Use
     //val text = ClassPathResource("/data/content.txt").inputStream.use { it.bufferedReader().readText() }
     //println(text)
-    //Collections (Mutable, Immutable)
- //   val ints = listOf(5, 2, 6, 4, 7, 9, 8) // Immutable
- //   val result = ints.asSequence().filter { it % 2 == 0 }.also { println(it) }.toList()
- //   println(result)
-    // Immutable
-//    val mutableListInts = mutableListOf(5, 2, 6, 4, 7, 9, 8)
-//    mutableListInts.clear()
-//    println(mutableListInts)
+    // Collections (Mutable, Immutable)
+    // val ints = listOf(5, 2, 6, 4, 7, 9, 8) // Immutable
+    // val result = ints.asSequence().filter { it % 2 == 0 }.also { println(it) }.toList()
+    // println(result)
+    // Immutability
+    // val mutableListInts = mutableListOf(5, 2, 6, 4, 7, 9, 8)
+    // mutableListInts.clear()
+    // println(mutableListInts)
     // Operator overloading: if we have time
-    // High order functions : if we have time
+/*    val kotlinBook = BookDomain("ISBNTEST1", "Programming Kotlin", 30.0)
+    val dddBook = BookDomain("ISBNTEST2", "DDD", 40.0)
+    println(kotlinBook+dddBook)*/
     // Mini DSL: if we have time
+    //println("★★★★" shouldBeEqualTo BookDomain("ISBNTEST1", "Programming Kotlin", 30.0).rate(5))
 
 }
+
+
+infix fun <T> T.shouldBeEqualTo(expected: T?): Boolean = this == expected
+
+
+operator fun BookDomain.plus(book: com.riadhmnasri.domain.Book) = copy(isbn = this.isbn + book.isbn, title = this.title + book.title, price = this.price + book.price)
 
 fun BookDomain.rate(note: Int): String = when (note) {
     in 1..5 -> "★".repeat(note)

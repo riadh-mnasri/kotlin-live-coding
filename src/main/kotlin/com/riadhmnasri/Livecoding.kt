@@ -4,30 +4,32 @@ import com.riadhmnasri.domain.Book as BookDomain
 
 fun main() {
     /*
-    What I will present in this live coding session
+    What I will present in this live coding session ?
     Java vs Kotlin (see https://www.kotlinvsjava.com/)
-    Vals vs Vars (declare variable)
+    Vals vs Vars (how to declare variable)
     Type inference
     Class and data classes (classes instantiating (no more new))
-    Default values (no need to overload)
     Referential equality and structural equality
+    Default values (no need to overload)
     String templates
     Exception Handling
-    Null Safety/Declare Not Nullable types/Elvis operator
+    Null Safety: Declare Not Nullable types, Elvis operator, ...
     Smart casts/explicit casts
     Import renaming
     Ranges/loops
     When expression/Sealed class
-    Inheritance (default final, open, override)
+    Inheritance (by default: final -> open, override)
     Delegation
     Functions in Kotlin
     Named parameters
     Extensions functions
     Standard library functions
-    Collections (Mutable/
-    High order functions if we have time
+    Collections (Mutable/Immutable)
+    Operator overloading: if we have time
+    Mini DSL: if we have time
      */
-    // Java vs Kotlin (By example
+
+    // Java vs Kotlin (By example)
     // Val vs Vars
     //val text = "Hello Kotlin"
     //text = "test" // Val can not reassigned
@@ -37,12 +39,17 @@ fun main() {
     //val i = 1
     //println(i.plus(2))
 
-    // Class and data classes (equality) (classes instantiating (no more new))
+    // Class and data classes (classes instantiating (no more new))
+    //Referential equality and structural equality
     //val kotlinBook = Book("ISBNTEST1", "Programming Kotlin")
     //val kotlinBook2 = Book("ISBNTEST1", "Programming Kotlin")
     //println(kotlinBook==kotlinBook2)
 
+    //Default values (no need to overload)
+    // See Book class constructor
+
     // String templates
+    //val text = "Hello Kotlin"
     //println("message: $text")
     /*val paragraph = """
         Hello
@@ -51,8 +58,6 @@ fun main() {
     """.trimIndent()*/
     //println(paragraph)
 
-    //Default values (no need to overload)
-    // See Book class constructor
 
     //Referential equality and structural equality
     /* val kotlinBook = BookDomain("ISBNTEST1", "Programming Kotlin")
@@ -131,11 +136,14 @@ fun main() {
     // Use
     //val text = ClassPathResource("/data/content.txt").inputStream.use { it.bufferedReader().readText() }
     //println(text)
+
     // Collections (Mutable, Immutable)
+    // Immutable collections
     // val ints = listOf(5, 2, 6, 4, 7, 9, 8) // Immutable
     // val result = ints.asSequence().filter { it % 2 == 0 }.also { println(it) }.toList()
     // println(result)
-    // Immutability
+
+    // Mutable collections
     // val mutableListInts = mutableListOf(5, 2, 6, 4, 7, 9, 8)
     // mutableListInts.clear()
     // println(mutableListInts)

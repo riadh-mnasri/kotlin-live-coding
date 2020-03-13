@@ -1,8 +1,5 @@
 package com.riadhmnasri
 
-import org.springframework.core.io.ClassPathResource
-import com.riadhmnasri.domain.Book as BookDomain
-
 fun main() {
     /*
     What I will present in this live coding session ?
@@ -36,8 +33,10 @@ fun main() {
 
     // Type Inference (from variable, from interfaces)
 
-
-    // Class and data classes (classes instantiating (no more new))
+    // Class and data classes (classes instantiating (no more new))`
+    val kotlinBook = Book("ISBNTEST1", "Programming Kotlin")
+    val kotlinBook2 = Book("ISBNTEST1", "Programming Kotlin")
+    println(kotlinBook === kotlinBook2)
     // Referential equality and structural equality
 
     // Default values (no need to overload)
@@ -100,72 +99,4 @@ fun main() {
 }
 
 
-infix fun <T> T.shouldBeEqualTo(expected: T?) = this == expected
-
-
-fun BookDomain.rate(note: Int): String = when (note) {
-    in 1..5 -> "★".repeat(note)
-    else -> "Invalid note"
-}
-
-fun print(obj: Any) {
-    if (obj is String) {
-        println(obj)
-    }
-}
-
-class BookRepository {
-    private val books = listOf(
-            BookDomain("ISBNTEST1", "Programming Kotlin"),
-            BookDomain("ISBNTEST2", "Effective Kotlin")
-
-    )
-
-    fun findBookByIsbn(isbn: String): BookDomain? = books.firstOrNull { it.isbn == isbn }
-
-    fun findBookByIsbnV2(isbn: String): BookResult =
-            when (val result = books.firstOrNull { it.isbn == isbn }) {
-                null -> BookResult.BookNotFound(isbn)
-                else -> BookResult.BookFound(result)
-            }
-}
-
-//  Sealed classes
-sealed class BookResult {
-    class BookNotFound(isbn: String) : BookResult()
-    class BookFound(book: BookDomain) : BookResult()
-}
-
-// Inheritance
-open class Vehicle {
-    open fun name(): String {
-        return "Vehicle"
-    }
-}
-
-class Car : Vehicle() {
-    override fun name(): String {
-        return "Car"
-    }
-}
-
-
-// Delegation
-interface Hobby {
-    fun name(): String
-    fun cost(): String
-}
-
-class Tennis : Hobby {
-    override fun name(): String = "Play Tennis"
-    override fun cost(): String = "Expensive"
-}
-
-
-class Activity(hobby: Hobby) : Hobby by hobby {
-    override fun name(): String = "Activity :: Play Tennis"
-}
-
-
-
-
+data class Book(val isbn: String, val title: String, val price: Double = 0.0)

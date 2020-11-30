@@ -1,5 +1,6 @@
 package com.riadhmnasri
 
+import org.springframework.core.io.ClassPathResource
 import com.riadhmnasri.domain.Book as BookDomain
 
 fun main() {
@@ -45,34 +46,61 @@ fun main() {
     println(foundBook2)
 
     // Smart casts/explicit casts
-    
+    print("Text")
 
     // Import renaming // Rename class Book en BookDomain without changing it
+    // Done
 
     // Ranges/loops
+    val range = 1..10
+    for(i in range){
+        println(i)
+    }
 
     // When expression/Sealed class
+    val resulSearch = BookRepository().findBookByIsbnV2("ISBNTEST1")
+    println(processResult(resulSearch))
 
     // Inheritance (default final, open, override)
+    println(Car().name())
 
     // Delegation
+    val activity = Activity(Tennis())
+    println(activity.name() + " - " + activity.cost())
 
     // Named parameters
+    val bookSample = BookDomain(title = "Effective kotlin", isbn= "ISBNTEST1")
+    println(bookSample)
 
     // Extensions functions
+    println(BookDomain(title = "Effective kotlin", isbn= "ISBNTEST1").rate(5))
 
     // Standard library functions
     // Apply // returns the original instance
+    bookKotlin.apply { println(rate(5)) }
 
     // Let // Kind of map to an object
+    println(bookKotlin.let { it.title })
 
-    // With
+    // With // return the processed result
+    val rate = with(bookKotlin){
+        bookKotlin.rate(5)
+    }
+    println(rate)
 
     // Run
+    val rate2 = bookKotlin.run {
+        bookKotlin.rate(5)
+    }
+    println(rate2)
 
     // Lazy
+    val rate3 = lazy { bookKotlin.rate(5)}
+    println(rate3.value)
 
     // Use
+    val readText = ClassPathResource("/data/content.txt").inputStream.use { it.bufferedReader().readText() }
+    println(readText)
 
     // Collections (Mutable, Immutable)
 
@@ -84,20 +112,23 @@ fun main() {
 
 }
 
+fun BookDomain.rate(note:Int): String{
+    return when(note){
+        note -> "*".repeat(note)
+        else -> "Invalid note"
+    }
+}
 
-infix fun <T> T.shouldBeEqualTo(expected: T?): Boolean = this == expected
-
-
-operator fun BookDomain.plus(book: com.riadhmnasri.domain.Book) = copy(isbn = this.isbn + book.isbn, title = this.title + book.title, price = this.price + book.price)
-
-fun BookDomain.rate(note: Int): String = when (note) {
-    in 1..5 -> "★".repeat(note)
-    else -> "Invalid note"
+fun processResult(bookResult: BookResult): String {
+    return when(bookResult){
+        is BookResult.BookFound ->  "Cool !"
+        is BookResult.BookNotFound -> "Sorry, may be next time !"
+    }
 }
 
 fun print(obj: Any) {
     if (obj is String) {
-        println(obj)
+        println(obj.toUpperCase())
     }
 }
 

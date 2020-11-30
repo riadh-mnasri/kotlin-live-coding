@@ -5,28 +5,47 @@ import com.riadhmnasri.domain.Book as BookDomain
 fun main() {
     // Java vs Kotlin (By example
     // Val vs Vars
+    val text = "Hello Kotlin"
+    var text2 = "Hello Java"
+    text2 = "Hello Scala"
+    println(text2)
 
     // Type Inference (from variable, from interfaces)
+    val i = 2
+    println(i.plus(5))
 
     // Class and data classes (equality) (classes instantiating (no more new))
+    // Referential equality and structural equality
+    val bookKotlin = BookDomain("ISBNTEST1", "Programming Kotlin", 0.0)
+    val anotherBook = BookDomain("ISBNTEST1", "Programming Kotlin", 0.0)
+    println(bookKotlin === anotherBook)
 
     // String templates
+    println("display $text")
+    val paragraph = """
+        Hello
+        Sopra Steria
+        :-)
+    """.trimIndent()
+    println(paragraph)
 
     // Default values (no need to overload)
     // See Book class constructor
-
-    // Referential equality and structural equality
+    println(BookDomain("ISBNTEST", "Hello Kotlin"))
 
     // Exception (all are unchecked exceptions)/annotation @Throws when kotlin function called from Java
     // All exceptions are unchecked
 
     // Null Safety/Declare Not Nullable types/Elvis operator
-
     // Null Safety
-
+    val foundBook = BookRepository().findBookByIsbn("ISBNTEST11")
+    println(foundBook?.title)
     // Elvis Operator
+    val foundBook2 = BookRepository().findBookByIsbn("ISBNTEST11") ?: BookDomain("ISBNTEST3", "Domain Driven Design")
+    println(foundBook2)
 
     // Smart casts/explicit casts
+    
 
     // Import renaming // Rename class Book en BookDomain without changing it
 

@@ -23,6 +23,7 @@ fun main() {
 
     // String templates
     println("display $text")
+    // String paragraph
     val paragraph = """
         Hello
         Sopra Steria
@@ -41,6 +42,7 @@ fun main() {
     // Null Safety
     val foundBook = BookRepository().findBookByIsbn("ISBNTEST11")
     println(foundBook?.title)
+
     // Elvis Operator
     val foundBook2 = BookRepository().findBookByIsbn("ISBNTEST11") ?: BookDomain("ISBNTEST3", "Domain Driven Design")
     println(foundBook2)
@@ -53,7 +55,7 @@ fun main() {
 
     // Ranges/loops
     val range = 1..10
-    for(i in range){
+    for (i in range) {
         println(i)
     }
 
@@ -69,11 +71,11 @@ fun main() {
     println(activity.name() + " - " + activity.cost())
 
     // Named parameters
-    val bookSample = BookDomain(title = "Effective kotlin", isbn= "ISBNTEST1")
+    val bookSample = BookDomain(title = "Effective kotlin", isbn = "ISBNTEST1")
     println(bookSample)
 
     // Extensions functions
-    println(BookDomain(title = "Effective kotlin", isbn= "ISBNTEST1").rate(5))
+    println(BookDomain(title = "Effective kotlin", isbn = "ISBNTEST1").rate(5))
 
     // Standard library functions
     // Apply // returns the original instance
@@ -83,7 +85,7 @@ fun main() {
     println(bookKotlin.let { it.title })
 
     // With // return the processed result
-    val rate = with(bookKotlin){
+    val rate = with(bookKotlin) {
         bookKotlin.rate(5)
     }
     println(rate)
@@ -95,7 +97,7 @@ fun main() {
     println(rate2)
 
     // Lazy
-    val rate3 = lazy { bookKotlin.rate(5)}
+    val rate3 = lazy { bookKotlin.rate(5) }
     println(rate3.value)
 
     // Use
@@ -113,8 +115,8 @@ fun main() {
     println(mutableList)
 
     // Operator overloading
-    val book1 = BookDomain(title = "Effective kotlin", isbn= "ISBNTEST1", price = 30.0)
-    val book2 =  BookDomain(title = "Effective Java", isbn= "ISBNTEST1", price = 50.0)
+    val book1 = BookDomain(title = "Effective kotlin", isbn = "ISBNTEST1", price = 30.0)
+    val book2 = BookDomain(title = "Effective Java", isbn = "ISBNTEST1", price = 50.0)
     println(book1 + book2)
 
     // Mini DSL: if we have time
@@ -124,20 +126,20 @@ fun main() {
 
 infix fun <T> T.shouldBeEqualTo(expected: T?): Boolean = this == expected
 
-fun BookDomain.rate(note:Int): String{
-    return when(note){
+fun BookDomain.rate(note: Int): String {
+    return when (note) {
         note -> "*".repeat(note)
         else -> "Invalid note"
     }
 }
 
 operator fun BookDomain.plus(bookToAdd: BookDomain): BookDomain {
-    return BookDomain(this.isbn + bookToAdd.isbn, this.title+bookToAdd.isbn, this.price+bookToAdd.price)
+    return BookDomain(this.isbn + bookToAdd.isbn, this.title + bookToAdd.isbn, this.price + bookToAdd.price)
 }
 
 fun processResult(bookResult: BookResult): String {
-    return when(bookResult){
-        is BookResult.BookFound ->  "Cool !"
+    return when (bookResult) {
+        is BookResult.BookFound -> "Cool !"
         is BookResult.BookNotFound -> "Sorry, may be next time !"
     }
 }
@@ -150,16 +152,16 @@ fun print(obj: Any) {
 
 class BookRepository {
     private val books = listOf(
-            BookDomain("ISBNTEST1", "Programming Kotlin"),
-            BookDomain("ISBNTEST2", "Effective Kotlin")
+        BookDomain("ISBNTEST1", "Programming Kotlin"),
+        BookDomain("ISBNTEST2", "Effective Kotlin")
 
     )
 
     fun findBookByIsbn(isbn: String): BookDomain? = books.firstOrNull { it.isbn == isbn }
 
     fun findBookByIsbnV2(isbn: String): BookResult =
-            when (val result = books.firstOrNull { it.isbn == isbn }) {
-                null -> BookResult.BookNotFound(isbn)
-                else -> BookResult.BookFound(result)
-            }
+        when (val result = books.firstOrNull { it.isbn == isbn }) {
+            null -> BookResult.BookNotFound(isbn)
+            else -> BookResult.BookFound(result)
+        }
 }

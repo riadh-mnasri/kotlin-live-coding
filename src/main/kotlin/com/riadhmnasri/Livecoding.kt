@@ -4,7 +4,7 @@ import org.springframework.core.io.ClassPathResource
 import com.riadhmnasri.domain.Book as BookDomain
 
 fun main() {
-    // Java vs Kotlin (By example
+    // Java vs Kotlin (By example)
     // Val vs Vars
     val text = "Hello Kotlin"
     var text2 = "Hello Java"
@@ -103,20 +103,36 @@ fun main() {
     println(readText)
 
     // Collections (Mutable, Immutable)
+    val ints = listOf(6, 7, 8, 9, 3, 4, 5)
+    val filteredResult = ints.asSequence().filter { it % 2 == 0 }.toList()
+    println(filteredResult)
 
-    // Immutability
+    // Mutable collections
+    val mutableList = mutableListOf(7, 8, 9, 6, 4, 3)
+    mutableList.clear()
+    println(mutableList)
 
     // Operator overloading
+    val book1 = BookDomain(title = "Effective kotlin", isbn= "ISBNTEST1", price = 30.0)
+    val book2 =  BookDomain(title = "Effective Java", isbn= "ISBNTEST1", price = 50.0)
+    println(book1 + book2)
 
     // Mini DSL: if we have time
+    println("★★★★" shouldBeEqualTo BookDomain("ISBNTEST1", "Programming Kotlin", 30.0).rate(5))
 
 }
+
+infix fun <T> T.shouldBeEqualTo(expected: T?): Boolean = this == expected
 
 fun BookDomain.rate(note:Int): String{
     return when(note){
         note -> "*".repeat(note)
         else -> "Invalid note"
     }
+}
+
+operator fun BookDomain.plus(bookToAdd: BookDomain): BookDomain {
+    return BookDomain(this.isbn + bookToAdd.isbn, this.title+bookToAdd.isbn, this.price+bookToAdd.price)
 }
 
 fun processResult(bookResult: BookResult): String {

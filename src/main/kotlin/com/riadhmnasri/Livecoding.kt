@@ -1,5 +1,7 @@
 package com.riadhmnasri
 
+import com.riadhmnasri.domain.Book
+
 
 fun main() {
     // Java vs Kotlin (By example)
@@ -92,12 +94,12 @@ fun print(obj: Any) {
 
 class BookRepository {
     private val books = listOf(
-        BookDomain("ISBNTEST1", "Programming Kotlin"),
-        BookDomain("ISBNTEST2", "Effective Kotlin")
+        Book("ISBNTEST1", "Programming Kotlin"),
+        Book("ISBNTEST2", "Effective Kotlin")
 
     )
 
-    fun findBookByIsbn(isbn: String): BookDomain? = books.firstOrNull { it.isbn == isbn }
+    fun findBookByIsbn(isbn: String): Book? = books.firstOrNull { it.isbn == isbn }
 
     fun findBookByIsbnV2(isbn: String): BookResult =
         when (val result = books.firstOrNull { it.isbn == isbn }) {

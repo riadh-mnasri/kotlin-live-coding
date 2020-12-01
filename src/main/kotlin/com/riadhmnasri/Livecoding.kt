@@ -102,6 +102,7 @@ fun main() {
 
     // Use
     val readText = ClassPathResource("/data/content.txt").inputStream.use { it.bufferedReader().readText() }
+
     println(readText)
 
     // Collections (Mutable, Immutable)

@@ -13,5 +13,5 @@ class Tennis : Hobby {
 
 
 class Activity(hobby: Hobby) : Hobby by hobby {
-    override fun name(): String = "Activity :: Play Tennis"
+    override fun name(): String = "Activity "
 }
